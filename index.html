@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>github fetch</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+         <h1>Github Fetch</h1>
+         <ul class="ul-js">
+         </ul>
+        </div>
+    </div>
+    <script defer>
+    let arrayrepo=[];
+    const ul=document.querySelector(".ul-js");
+    fetch("https://api.github.com/users/Bikramghimire/repos")
+    .then(res=>res.json()).then(data=>{
+        data.map((item)=>{
+            const list=document.createElement("li");
+           list.setAttribute("class","list-style");
+           list.innerHTML=`
+           <p> Id :${item.id}</p>
+           <h2>Project:${item.name}</h2>
+           <h3>Owner:${item.owner.login}</h3>
+           <p>Link of project :<a href="${item.html_url}">link for the code</a></p>`
+    
+     ul.append(list);
+        })
+    } );
+
+    </script>
+    
+</body>
+</html>
