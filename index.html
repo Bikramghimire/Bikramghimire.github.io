@@ -5,32 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>github fetch</title>
-    <link rel="stylesheet" href="./style.css">
+    <style>
+        th,td,tr{
+            border: 1px solid #3333;
+        }
+        td{
+            padding: 5px 10px;
+        }
+        th{
+            background-color:#dddd;
+            padding: 8px 15px;
+        }
+        
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-         <h1>Github Fetch</h1>
-         <ul class="ul-js">
-         </ul>
-        </div>
-    </div>
+    <div class="whole">
+        <table style="border: 1px solid #000; margin: 10px auto;">
+          <thead>
+           <h2 style="text-align: center;"> Fetching the Github Data</h2>
+          </thead>
+          <th>ID</th>
+          <th>Project Name</th>
+          <th>Url</th>
+          <th>Description</th>
+          <tbody id="dataBody"></tbody>
+        </table>
+      </div>
     <script defer>
-    let arrayrepo=[];
-    const ul=document.querySelector(".ul-js");
+          let tbody=document.getElementById("dataBody");
     fetch("https://api.github.com/users/Bikramghimire/repos")
     .then(res=>res.json()).then(data=>{
-        data.map((item)=>{
-            const list=document.createElement("li");
-           list.setAttribute("class","list-style");
-           list.innerHTML=`
-           <p> Id :${item.id}</p>
-           <h2>Project:${item.name}</h2>
-           <h3>Owner:${item.owner.login}</h3>
-           <p>Link of project :<a href="${item.html_url}">link for the code</a></p>`
-    
-     ul.append(list);
-        })
+            data.map((item,index)=>{
+                console.log(item,index)
+var row=tbody.insertRow(index);
+var id=row.insertCell(0);
+var name=row.insertCell(1);
+var url=row.insertCell(2);
+var language=row.insertCell(3);
+id.innerHTML=item.id;
+name.innerHTML=item.name;
+url.innerHTML=item.html_url;
+language.innerHTML=`<a href="https://bikramghimire.github.io/${item.name}/" target="_blank">Link of project</a>`;
+    }
+            )
     } );
 
     </script>
